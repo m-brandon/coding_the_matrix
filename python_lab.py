@@ -2,7 +2,7 @@
 minutes_in_week = 60*24*7
 
 ## Task 2
-remainder_without_mod = 2304811 - (48 * (2304811//48))
+remainder_without_mod = 2304811 - (47 * (2304811//47))
 
 ## Task 3
 divisible_by_3 = ((673+909) % 3) == 0
