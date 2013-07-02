@@ -23,14 +23,12 @@ def makeInverseIndex(strlist):
       or stories_big.txt included in the download.
     """
     outlist = {}
-    for in_file,filename in enumerate(strlist):
-        fid = open(filename,'r')
-        for currline in fid:
-            for currword in currline.split():
-                if currword in outlist:
-                    outlist[currword] = outlist[currword] | {in_file}
-                else:
-                    outlist[currword] = {in_file}
+    for in_doc,currdoc in enumerate(strlist):
+        for currword in currdoc.split():
+            if currword in outlist:
+                outlist[currword] = outlist[currword] | {in_doc}
+            else:
+                outlist[currword] = {in_doc}
     
     return outlist
 
@@ -40,7 +38,12 @@ def orSearch(inverseIndex, query):
     Input: an inverse index, as created by makeInverseIndex, and a list of words to query
     Output: the set of document ids that contain _any_ of the specified words
     """
-    return ...
+    outlist = set()
+    for x in query:
+        if x in inverseIndex:
+            outlist = outlist | inverseIndex[x]
+    
+    return outlist
 
 ## Task 6
 def andSearch(inverseIndex, query):
@@ -48,4 +51,14 @@ def andSearch(inverseIndex, query):
     Input: an inverse index, as created by makeInverseIndex, and a list of words to query
     Output: the set of all document ids that contain _all_ of the specified words
     """
-    return ... 
+    outlist = set()
+    f_first = 1
+    for x in query:
+        if x in inverseIndex:
+            if f_first == 1:
+                outlist = inverseIndex[x]
+                f_first = 0
+            else:
+                outlist = outlist & inverseIndex[x]
+    
+    return outlist
