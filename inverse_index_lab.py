@@ -8,7 +8,7 @@ def movie_review(name):
     Output: a string (one of the review options), selected at random using randint
     """
     review_options = ["See it!", "A gem!", "Ideological claptrap!"]
-    return ...
+    return review_options[randint(0,2)]
 
 ## Tasks 2 and 3 are in dictutil.py
 
@@ -22,7 +22,17 @@ def makeInverseIndex(strlist):
     Note that to test your function, you are welcome to use the files stories_small.txt
       or stories_big.txt included in the download.
     """
-    return ...
+    outlist = {}
+    for in_file,filename in enumerate(strlist):
+        fid = open(filename,'r')
+        for currline in fid:
+            for currword in currline.split():
+                if currword in outlist:
+                    outlist[currword] = outlist[currword] | {in_file}
+                else:
+                    outlist[currword] = {in_file}
+    
+    return outlist
 
 ## Task 5
 def orSearch(inverseIndex, query):
